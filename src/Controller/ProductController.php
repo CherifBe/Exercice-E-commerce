@@ -75,7 +75,7 @@ class ProductController extends AbstractController
         $formShoppingBasket->handleRequest($r);
 
         if($formShoppingBasket->isSubmitted() && $formShoppingBasket->isValid()){
-            $basket = $em->getRepository(Basket::class)->getCurrentBasket($this->getUser()->getId()); // On vient vérifier si on possède déjà un panier qui n'est pas encore "acheter"
+            $basket = $em->getRepository(Basket::class)->getCurrentBasket($this->getUser()); // On vient vérifier si on possède déjà un panier qui n'est pas encore "acheter"
             if($basket === null){ // Si on ne trouve aucun panier, on en créé un nouveau
                 $basket = new Basket();
                 $basket->setUser($this->getUser());

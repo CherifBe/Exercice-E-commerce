@@ -1,20 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BasketController!{% endblock %}
+{% block title %}Ma boutique - Mon panier{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {% if products is empty %}
+        <h2>Vous n'avez aucun produit dans votre panier</h2>
+    {% else %}
+        <h1>Mon panier</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Quantité</th>
+            <th>Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set total = 0 %}
+        {% for product in products %}
+            <tr>
+                <td>{{ product.product.name }}</td>
+                <td>{{ product.product.price / 100|round(2) }} $ {% if product.quantity > 1 %} - <small>{{ (product.product.price * product.quantity) / 100|round(2) }} $</small>{% endif %}</td>
+                <td>
+                    {% if product.product.image is not empty %}
+                        <img src="{{ asset('uploads/' ~ product.product.image) }}" style="width: 200px;">
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_basket_change', {'id':product.id, 'change': 'minus'}) }}">-</a>
+                    {{ product.quantity }}
+                    <a href="{{ path('app_basket_change', {'id':product.id, 'change': 'add'}) }}">+</a>
+                </td>
+                <td>
+                    <a href="{{ path('app_basket_change', {'id':product.id, 'change': 'delete'}) }}">Supprimer</a>
+                </td>
+            </tr>
+            {% set total = total + product.product.price * product.quantity %}
+        {% endfor %}
+        </tbody>
+        </table>
+        <h4>Total: {{ total / 100|round(2) }}$</h4>
+        <a href="{{ path('app_basket_buy') }}" class="btn btn-primary">ACHETER</a>
+    {% endif %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/cherifb/Documents/Symfony/devoir_ecommerce/src/Controller/BasketController.php'|file_link(0) }}">src/Controller/BasketController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/cherifb/Documents/Symfony/devoir_ecommerce/templates/basket/index.html.twig'|file_link(0) }}">templates/basket/index.html.twig</a></code></li>
-    </ul>
-</div>
+
+
+
 {% endblock %}

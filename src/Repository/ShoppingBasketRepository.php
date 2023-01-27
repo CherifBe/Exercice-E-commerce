@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Basket;
 use App\Entity\ShoppingBasket;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<ShoppingBasket>
@@ -37,6 +39,21 @@ class ShoppingBasketRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getProductsFromCurrentBasket(UserInterface $user): ?array
+    {
+        return $this->createQueryBuilder('s')
+            ->join('s.product', 'p')
+            ->addSelect('p')
+            ->join('s.basket', 'b')
+            ->addSelect('b')
+            ->where('b.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere('b.state = :state')
+            ->setParameter('state', false)
+            ->getQuery()->getResult()
+            ;
     }
 
 //    /**

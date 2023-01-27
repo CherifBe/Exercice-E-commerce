@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Basket;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Basket>
@@ -39,12 +40,12 @@ class BasketRepository extends ServiceEntityRepository
         }
     }
 
-    public function getCurrentBasket(int $user_id): ?Basket
+    public function getCurrentBasket(UserInterface $user): ?Basket
     {
         return $this->createQueryBuilder('b')
             ->where('b.user = :user_id')
             ->andWhere('b.state = 0')
-            ->setParameter('user_id', $user_id)
+            ->setParameter('user_id', $user)
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
