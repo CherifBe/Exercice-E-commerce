@@ -39,6 +39,17 @@ class BasketRepository extends ServiceEntityRepository
         }
     }
 
+    public function getCurrentBasket(int $user_id): ?Basket
+    {
+        return $this->createQueryBuilder('b')
+            ->where('b.user = :user_id')
+            ->andWhere('b.state = 0')
+            ->setParameter('user_id', $user_id)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Basket[] Returns an array of Basket objects
 //     */

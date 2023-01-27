@@ -32,6 +32,7 @@ class Basket
     public function __construct()
     {
         $this->shoppingBaskets = new ArrayCollection();
+        $this->setState(false);
     }
 
     public function getId(): ?int

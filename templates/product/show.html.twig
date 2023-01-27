@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th>Price</th>
-                <td>{{ product.price }}</td>
+                <td>{{ product.price / 100|round(2) }}$</td>
             </tr>
             <tr>
                 <th>Stock</th>
@@ -29,10 +29,18 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ product.image }}</td>
+                <td>
+                    {% if product.image is not empty %}
+                        <img src="{{ asset('uploads/' ~ product.image) }}">
+                    {% endif %}
+                </td>
             </tr>
         </tbody>
     </table>
+
+    <h2>Ajouter à mon panier</h2>
+
+    {{ form(formShoppingBasket) }}
 
     <a href="{{ path('app_product_index') }}">back to list</a>
 

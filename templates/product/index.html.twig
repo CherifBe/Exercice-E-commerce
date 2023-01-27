@@ -3,6 +3,10 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
+    <h2>Create new Product</h2>
+
+    {{ include('product/_form.html.twig') }}
+
     <h1>Product index</h1>
 
     <table class="table">
@@ -23,9 +27,12 @@
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
+                <td>{{ product.price / 100|round(2) }} $</td>
                 <td>{{ product.stock }}</td>
-                <td>{{ product.image }}</td>
+                <td>
+                    {% if product.image is not empty %}
+                        <img src="{{ asset('uploads/' ~ product.image) }}">
+                    {% endif %}</td>
                 <td>
                     <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
                     <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
@@ -38,6 +45,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_product_new') }}">Create new</a>
 {% endblock %}
