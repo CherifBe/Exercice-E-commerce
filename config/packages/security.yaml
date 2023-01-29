@@ -34,6 +34,8 @@ security:
          - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
          - { path: edit, roles: ROLE_ADMIN }
          - { path: delete, roles: ROLE_ADMIN }
+         - { path: basket, roles: ROLE_USER }
+         - { path: profile, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
 
     role_hierarchy:
