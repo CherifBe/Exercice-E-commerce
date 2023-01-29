@@ -15,7 +15,7 @@
             <th>Price</th>
             <th>Image</th>
             <th>Quantité</th>
-            <th>Supprimer</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -35,7 +35,7 @@
                     <a href="{{ path('app_basket_change', {'id':product.id, 'change': 'add'}) }}">+</a>
                 </td>
                 <td>
-                    <a href="{{ path('app_basket_change', {'id':product.id, 'change': 'delete'}) }}">Supprimer</a>
+                    <a href="{{ path('app_basket_change', {'id':product.id, 'change': 'delete'}) }}" class="btn-primary btn">Supprimer</a>
                 </td>
             </tr>
             {% set total = total + product.product.price * product.quantity %}

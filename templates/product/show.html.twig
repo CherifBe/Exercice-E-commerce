@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %}Ma boutique - Mon article{% endblock %}
 
 {% block body %}
-    <h1>Product</h1>
+    <h1>Article</h1>
+
+    <a href="{{ path('app_product_index') }}" class="btn-primary btn">Retour à l'accueil</a>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
             <tr>
                 <th>Name</th>
                 <td>{{ product.name }}</td>
@@ -42,9 +40,16 @@
 
     {{ form(formShoppingBasket) }}
 
-    <a href="{{ path('app_product_index') }}">back to list</a>
 
-    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
 
-    {{ include('product/_delete_form.html.twig') }}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div style="display: flex; justify-content: space-between;margin-bottom: 50px;">
+        <div>
+            <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn-warning btn">Edit</a>
+        </div>
+        <div>
+        {{ include('product/_delete_form.html.twig') }}
+        </div>
+        </div>
+    {% endif %}
 {% endblock %}

@@ -3,16 +3,18 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    <h2>Create new Product</h2>
 
-    {{ include('product/_form.html.twig') }}
+    {% if is_granted('ROLE_ADMIN') %}
+        <h2>Create new Product</h2>
+        {{ include('product/_form.html.twig') }}
+        <button class="btn-primary btn">{{ button_label|default('Save') }}</button>
+    {% endif %}
 
-    <h1>Product index</h1>
+    <h1>Les articles</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
@@ -24,23 +26,25 @@
         <tbody>
         {% for product in products %}
             <tr>
-                <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.price / 100|round(2) }} $</td>
                 <td>{{ product.stock }}</td>
                 <td>
                     {% if product.image is not empty %}
-                        <img src="{{ asset('uploads/' ~ product.image) }}">
-                    {% endif %}</td>
+                        <img src="{{ asset('uploads/' ~ product.image) }}" style="width: 200px;">
+                    {% endif %}
+                </td>
                 <td>
                     <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucun article trouvé</td>
             </tr>
         {% endfor %}
         </tbody>

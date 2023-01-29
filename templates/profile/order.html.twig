@@ -7,15 +7,33 @@
 <div>
     {% for order in orders %}
             <div class="container" style="border: 1px solid black; margin:30px auto; ;border-radius: 5px; padding: 10px;">
-                <small>Commande passée le: {{ order.createdAt|date('d/m/Y') }}</small>
+                <small>Commande passée le: {{ order.createdAt|date('d/m/Y') }} - ID de la commande: {{ order.id }}</small>
                 <p><a href="{{ path('app_profile_show_order', {'id': order.id}) }}">Voir la commande</a></p>
                 {% set total = 0 %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nom de l'article</th>
+                        <th>Image</th>
+                        <th>Prix</th>
+                        <th>Sous-total</th>
+                        <th>Quantité</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                 {% for product in order.getShoppingBaskets() %}
-                    <h4>{{ product.product.name }}</h4>
-                    <img src="{{ asset('uploads/' ~ product.product.image) }}" style="width: 200px;">
-                    <p>Prix de l'article: {{ product.product.price / 100|round(2) }}$ {% if product.quantity > 1 %}- Prix total: {{ (product.product.price * product.quantity) / 100|round(2) }}${% endif %} - Quantité: {{ product.quantity }}</p>
+                    <tr>
+                        <td>{{ product.product.name }}</td>
+                        <td><img src="{{ asset('uploads/' ~ product.product.image) }}" style="width: 200px;"></td>
+                        <td>{{ product.product.price / 100|round(2) }}$</td>
+                        <td>{{ (product.product.price * product.quantity) / 100|round(2) }}$</td>
+                        <td>{{ product.quantity }}</td>
                     {% set total = total + (product.product.price * product.quantity) %}
+                    </tr>
                 {% endfor %}
+                    </tbody>
+                    </thead>
+                </table>
                 Total de la commande: {{ total / 100|round(2) }}$</div>
             </div>
         <div>

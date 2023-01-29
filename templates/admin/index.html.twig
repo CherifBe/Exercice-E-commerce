@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma boutique - Administration{% endblock %}
+
+{% block body %}
+<h1>Espace Admin</h1>
+    <div>
+    {% for basket in baskets %}
+        <div class="container" style="border: 1px solid black; margin:30px auto; ;border-radius: 5px; padding: 10px;">
+            <small>ID de la commande: {{ basket.id }} - Panier de: {{ basket.user.firstname }} {{ basket.user.lastname }}</small>
+            {% set total = 0 %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Nom de l'article</th>
+                    <th>Image</th>
+                    <th>Prix</th>
+                    <th>Sous-total</th>
+                    <th>Quantité</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in basket.getShoppingBaskets() %}
+                    <tr>
+                        <td>{{ product.product.name }}</td>
+                        <td><img src="{{ asset('uploads/' ~ product.product.image) }}" style="width: 200px;"></td>
+                        <td>{{ product.product.price / 100|round(2) }}$</td>
+                        <td>{{ (product.product.price * product.quantity) / 100|round(2) }}$</td>
+                        <td>{{ product.quantity }}</td>
+                        {% set total = total + (product.product.price * product.quantity) %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </thead>
+            </table>
+            Prix total du panier: {{ total / 100|round(2) }}$</div>
+        </div>
+    {% else %}
+        <div>Il n'y a aucun panier non finalisé.</div>
+    {% endfor %}
+
+
+    <h2>Liste des utilisateurs</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.roles[0] }}</td>
+        </tr>
+    {% else %}
+        <div>Vous n'avez aucun utilisateur enregistré dans la base de données</div>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

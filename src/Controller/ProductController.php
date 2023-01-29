@@ -75,20 +75,26 @@ class ProductController extends AbstractController
         $formShoppingBasket->handleRequest($r);
 
         if($formShoppingBasket->isSubmitted() && $formShoppingBasket->isValid()){
-            $basket = $em->getRepository(Basket::class)->getCurrentBasket($this->getUser()); // On vient vérifier si on possède déjà un panier qui n'est pas encore "acheter"
-            if($basket === null){ // Si on ne trouve aucun panier, on en créé un nouveau
-                $basket = new Basket();
-                $basket->setUser($this->getUser());
-                $em->persist($basket);
+            if($this->getUser() != null){
+                $basket = $em->getRepository(Basket::class)->getCurrentBasket($this->getUser()); // On vient vérifier si on possède déjà un panier qui n'est pas encore "acheter"
+                if($basket === null){ // Si on ne trouve aucun panier, on en créé un nouveau
+                    $basket = new Basket();
+                    $basket->setUser($this->getUser());
+                    $em->persist($basket);
+                }
+                $shoppingBasket->setBasket($basket);
+                $shoppingBasket->setProduct($product);
+                $shoppingBasket->setCreatedAt(new \DateTime()); // J'ajoute le datetime ici et non pas dans le constructeur de ShoppingBasket, car ShoppingBasket est instancié au moment où l'utilisateur se rend sur la page et non pas au moment où il décide de mettre le produit dans son panier
+
+                $em->persist($shoppingBasket);
+                $em->flush();
+
+                $this->addFlash('success', 'Le produit '. $product->getName() . ' a bien été ajouté à votre panier');
             }
-            $shoppingBasket->setBasket($basket);
-            $shoppingBasket->setProduct($product);
-            $shoppingBasket->setCreatedAt(new \DateTime()); // J'ajoute le datetime ici et non pas dans le constructeur de ShoppingBasket, car ShoppingBasket est instancié au moment où l'utilisateur se rend sur la page et non pas au moment où il décide de mettre le produit dans son panier
-
-            $em->persist($shoppingBasket);
-            $em->flush();
-
-            $this->addFlash('success', 'Le produit '. $product->getName() . ' a bien été ajouté à votre panier');
+            else{
+                $this->addFlash('warning', 'Vous devez vous connecter pour pouvoir commander');
+                return $this->redirectToRoute('app_login');
+            }
         }
 
         return $this->render('product/show.html.twig', [
@@ -100,6 +106,10 @@ class ProductController extends AbstractController
     #[Route('/product/edit/{id}', name: 'app_product_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
     {
+        // TODO: CHANGER LE PRIX (*100 ou //100)
+
+        // TODO: Mettre route EDIT et DELETE dans config pour qu'il y ait que l'ADMIN qui puisse le faire
+
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
