@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma boutique - Ma commande{% endblock %}
+
+{% block body %}
+<h1>Détail de la commande</h1>
+
+<div>Date de la commande: {{ order.createdAt|date('d/m/Y H:m:s') }}</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>Quantité</th>
+        <th>Mis dans le panier le</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% set total = 0 %}
+    {% for product in order.getShoppingBaskets() %}
+        <tr>
+            <td>{{ product.product.name }}</td>
+            <td>{{ product.product.price / 100|round(2) }} $ {% if product.quantity > 1 %} - <small>{{ (product.product.price * product.quantity) / 100|round(2) }} $</small>{% endif %}</td>
+            <td>
+                {% if product.product.image is not empty %}
+                    <img src="{{ asset('uploads/' ~ product.product.image) }}" style="width: 200px;">
+                {% endif %}
+            </td>
+            <td>
+                {{ product.quantity }}
+            </td>
+            <td>
+                {{ product.createdAt|date('d/m/Y H:m:s') }}
+            </td>
+            <td>
+                <a href="{{ path('app_product_show', {'id': product.product.id}) }}">Acheter à nouveau</a>
+            </td>
+        </tr>
+        {% set total = total + product.product.price * product.quantity %}
+    {% endfor %}
+    </tbody>
+</table>
+<h4>Total: {{ total / 100|round(2) }}$</h4>
+
+{% endblock %}

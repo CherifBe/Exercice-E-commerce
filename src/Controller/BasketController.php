@@ -14,7 +14,7 @@ class BasketController extends AbstractController
     #[Route('/basket', name: 'app_basket')]
     public function index(EntityManagerInterface $em): Response
     {
-        $shoppingBasket = $em->getRepository(ShoppingBasket::class)->getProductsFromCurrentBasket($this->getUser());
+        $shoppingBasket = $em->getRepository(ShoppingBasket::class)->getProductsFromCurrentBasket($this->getUser(), false);
         return $this->render('basket/index.html.twig', [
             'products' => $shoppingBasket,
         ]);
@@ -23,8 +23,9 @@ class BasketController extends AbstractController
     #[Route('/basket/buy', name: 'app_basket_buy')]
     public function buy(EntityManagerInterface $em): Response
     {
+        //TODO: Combiner peut être les deux fonctions
         //TODO: Revoir ça, faire lifecycle ou un truc dans le genre
-        $products = $em->getRepository(ShoppingBasket::class)->getProductsFromCurrentBasket($this->getUser());
+        $products = $em->getRepository(ShoppingBasket::class)->getProductsFromCurrentBasket($this->getUser(), false);
 
         if(!$products[0]->getBasket()->isState()){
             $basket = $products[0]->getBasket();
