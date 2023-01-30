@@ -3,20 +3,20 @@
 {% block title %}Ma boutique - Administration{% endblock %}
 
 {% block body %}
-<h1>Espace Admin</h1>
+<h1>{{ 'admin.h1'|trans }}</h1>
     <div>
     {% for basket in baskets %}
         <div class="container" style="border: 1px solid black; margin:30px auto; ;border-radius: 5px; padding: 10px;">
-            <small>ID de la commande: {{ basket.id }} - Panier de: {{ basket.user.firstname }} {{ basket.user.lastname }}</small>
+            <small>{{ 'admin.command-id'|trans }}: {{ basket.id }} - {{ 'cart-of'|trans }}: {{ basket.user.firstname }} {{ basket.user.lastname }}</small>
             {% set total = 0 %}
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Nom de l'article</th>
-                    <th>Image</th>
-                    <th>Prix</th>
-                    <th>Sous-total</th>
-                    <th>Quantité</th>
+                    <th>{{ 'admin.name-of-the-article'|trans }}</th>
+                    <th>{{ 'admin.image'|trans }}</th>
+                    <th>{{ 'admin.price'|trans }}</th>
+                    <th>{{ 'admin.sub-total'|trans }}</th>
+                    <th>{{ 'admin.quantity'|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -33,23 +33,23 @@
                 </tbody>
                 </thead>
             </table>
-            Prix total du panier: {{ total / 100|round(2) }}$</div>
+            {{ 'admin.total-price'|trans }}: {{ total / 100|round(2) }}$</div>
         </div>
     {% else %}
-        <div>Il n'y a aucun panier non finalisé.</div>
+        <div>{{'admin.there-is-no-cart'|trans}}.</div>
     {% endfor %}
 
 
-    <h2>Liste des utilisateurs</h2>
+    <h2>{{ 'admin.h2'|trans }}</h2>
 
 <table class="table">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-        <th>Role</th>
+        <th>{{ 'admin.user-id'|trans }}</th>
+        <th>{{ 'admin.user-firstname'|trans }}</th>
+        <th>{{ 'admin.user-lastname'|trans }}</th>
+        <th>{{ 'admin.user-email'|trans }}</th>
+        <th>{{ 'admin.user-role'|trans }}</th>
     </tr>
     </thead>
     <tbody>
@@ -62,7 +62,7 @@
             <td>{{ user.roles[0] }}</td>
         </tr>
     {% else %}
-        <div>Vous n'avez aucun utilisateur enregistré dans la base de données</div>
+        <div>{{ 'admin.no-users'|trans }}</div>
     {% endfor %}
     </tbody>
     </table>

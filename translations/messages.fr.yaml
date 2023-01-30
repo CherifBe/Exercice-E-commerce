@@ -1,0 +1,151 @@
+delete: Supprimer
+update: Modifier
+edit: Editer
+remove: Supprimer
+back: Retour
+show: Voir
+
+nav:
+  articles: Articles
+  my-cart: Mon panier
+  my-account: Mon compte
+  disconnect: Se déconnecter
+  connect: Se connecter
+  register: S'inscrire
+
+
+BasketController:
+  buy-success: Nous avons bien reçu votre commande
+  change-quantity: Quantité mise à jour
+  remove-product: L'article a bien été supprimé
+  cart-updated: Votre panier a été mis à jour
+
+ProductController:
+  product-add-part-one: L'article
+  product-add-part-two: a bien été ajouté au panier
+  connect-first: Vous devez être connecter pour mettre un article dans le panier
+  admin:
+    product-updated: L'article a été modifié
+    product-removed: L'article a été supprimé
+    product-created: L'article a bien été créé
+
+ProfileController:
+  credentials-updated: Vos informations ont bien été mises à jour
+  no-access: Vous n'avez pas accès à cette page
+
+RegistrationController:
+  account-created: Votre compte a bien été créé
+
+admin:
+  h1: Administration
+  command-id: ID de la commande
+  cart-of: Panier de
+  name-of-the-article: Nom de l'article
+  image: Image
+  price: Prix
+  sub-total: Sous-total
+  quantity: Quantité
+  total-price: Prix total
+  there-is-no-cart: Il n'y a pas de panier non finalisé
+  h2: Liste des utilisateurs
+  user-id: ID
+  user-firstname: Prénom
+  user-lastname: Nom
+  user-email: Email
+  user-role: Role
+  no-users: Il n'y a aucun utilisateur enregistré dans votre base de donnée
+
+basket:
+  index:
+    there-is-no-product: Il n'y a aucun article dans votre panier
+    my-cart: Mon panier
+    product-name: Nom
+    product-price: Prix
+    product-image: Image
+    product-quantity: Quantité
+    action: Action
+    delete: Supprimer
+    total: Total
+    buy: Acheter
+
+  thanks:
+    h3: #TODO: A faire
+
+bundles:
+  error:
+    h1: Oops quelque chose s'est mal passé
+  error403:
+    h1: Non autorisé
+  error404:
+    h1: La page que vous cherchez n'a pas été trouvée
+  error500:
+    h1: Erreur interne du serveur
+
+product:
+  edit:
+    h1: Modifier produit
+  index:
+    h2: Créer un nouveau produit
+    h1: Liste des articles
+    product-name: Nom
+    product-description: Description
+    product-price: Prix
+    product-image: Image
+    action: Action
+    no-article: Aucun article n'a été trouvé
+  show:
+    title: Mon article
+    h1: Article
+    product-name: Nom
+    product-description: Description
+    product-price: Prix
+    product-stock: Stock
+    product-image: Image
+    add-product: Ajouter au panier
+
+profile:
+  index:
+    title: Mon profil
+    h1: Bonjour
+  order:
+    title: Mes commandes
+    h1: Mes commandes
+    ordered-the: Commandé le
+    id-of-the-order: ID de la commande
+    see-the-order: Voir la commande
+    product-name: Nom de l'article
+    product-image: Image
+    product-price: Prix
+    product-subtotal: Sous-total
+    product-quantity: Quantité
+    total: Total de la commande
+    there-is-no-order: Vous n'avez encore rien commandé
+
+  ordershow:
+    title: Ma commande
+    h1: Détail de la commande
+    order-date: Date de la commande
+    product-name: Nom
+    product-price: Prix
+    product-image: Image
+    product-quantity: Quantité
+    product-select-date: Mis dans le panier le
+    action: Action
+    buy-the-same: Acheter de nouveau
+    total: Total
+
+registration:
+  register:
+    register: S'inscrire
+
+security:
+  login:
+    title: Se connecter
+    already-logged: Vous êtes déjà connecté avec
+    logout: Déconnexion
+    pls-sign-in: Connectez-vous
+    email: Email
+    password: Mot de passe
+    sign-in: Connexion
+    no-account: Toujours pas de compte
+    register: inscrivez-vous

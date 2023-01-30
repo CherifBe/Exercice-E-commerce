@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -18,18 +19,37 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: 'The title must have 2 caracters',
+        maxMessage: 'The title must have 255 caracters',
+    )]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\PositiveOrZero]
     private ?int $price = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\PositiveOrZero]
     private ?int $stock = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: 'The picture title cannot have less than 2 caracters',
+        maxMessage: 'The picture title cannot have more than 255 caracters',
+    )]
     private ?string $image = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ShoppingBasket::class)]

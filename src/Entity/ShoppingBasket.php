@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ShoppingBasketRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ShoppingBasketRepository::class)]
 class ShoppingBasket
@@ -23,6 +24,7 @@ class ShoppingBasket
     private ?Basket $basket = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero]
     private ?int $quantity = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

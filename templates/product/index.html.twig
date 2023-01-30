@@ -5,22 +5,21 @@
 {% block body %}
 
     {% if is_granted('ROLE_ADMIN') %}
-        <h2>Create new Product</h2>
+        <h2>{{ 'product.index.h2'|trans }}</h2>
         {{ include('product/_form.html.twig') }}
         <button class="btn-primary btn">{{ button_label|default('Save') }}</button>
     {% endif %}
 
-    <h1>Les articles</h1>
+    <h1>{{ 'product.index.h1'|trans }}</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Image</th>
-                <th>actions</th>
+                <th>{{ 'product.index.product-name'|trans }}</th>
+                <th>{{ 'product.index.product-description'|trans }}</th>
+                <th>{{ 'product.index.product-price'|trans }}</th>
+                <th>{{ 'product.index.product-image'|trans }}</th>
+                <th>{{ 'product.index.action'|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -29,22 +28,21 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.price / 100|round(2) }} $</td>
-                <td>{{ product.stock }}</td>
                 <td>
                     {% if product.image is not empty %}
                         <img src="{{ asset('uploads/' ~ product.image) }}" style="width: 200px;">
                     {% endif %}
                 </td>
                 <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
+                    <a href="{{ path('app_product_show', {'id': product.id}) }}">{{ 'show'|trans }}</a>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+                        <a href="{{ path('app_product_edit', {'id': product.id}) }}">{{ 'edit'|trans }}</a>
                     {% endif %}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">Aucun article trouvé</td>
+                <td colspan="7">{{'product.index.no-article'|trans}}</td>
             </tr>
         {% endfor %}
         </tbody>

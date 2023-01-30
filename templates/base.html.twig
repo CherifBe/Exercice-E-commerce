@@ -33,24 +33,24 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_product_index') }}">Les Articles</a>
+                            <a class="nav-link" href="{{ path('app_product_index') }}">{{ 'nav.articles'|trans }}</a>
                         </li>
                         {% if is_granted('ROLE_USER') %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_basket') }}">Mon panier</a>
+                                <a class="nav-link" href="{{ path('app_basket') }}">{{ 'nav.my-cart'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_profile') }}">Mon compte</a>
+                                <a class="nav-link" href="{{ path('app_profile') }}">{{ 'nav.my-account'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                                <a class="nav-link" href="{{ path('app_logout') }}">{{ 'nav.disconnect'|trans }}</a>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                                <a class="nav-link" href="{{ path('app_login') }}">{{ 'nav.connect'|trans }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+                                <a class="nav-link" href="{{ path('app_register') }}">{{ 'nav.register'|trans }}</a>
                             </li>
                         {% endif %}
                     </ul>

@@ -1,32 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ma boutique - Mon article{% endblock %}
+{% block title %}Ma boutique - {{ 'product.show.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Article</h1>
+    <h1>{{ 'product.show.h1'|trans }}</h1>
 
-    <a href="{{ path('app_product_index') }}" class="btn-primary btn">Retour à l'accueil</a>
+    <a href="{{ path('app_product_index') }}" class="btn-primary btn">{{'back'|trans}}</a>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Name</th>
+                <th>{{ 'product.show.product-name'|trans }}</th>
                 <td>{{ product.name }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>{{ 'product.show.product-description'|trans }}</th>
                 <td>{{ product.description }}</td>
             </tr>
             <tr>
-                <th>Price</th>
+                <th>{{ 'product.show.product-price'|trans }}</th>
                 <td>{{ product.price / 100|round(2) }}$</td>
             </tr>
             <tr>
-                <th>Stock</th>
+                <th>{{ 'product.show.product-stock'|trans }}</th>
                 <td>{{ product.stock }}</td>
             </tr>
             <tr>
-                <th>Image</th>
+                <th>{{ 'product.show.product-image'|trans }}</th>
                 <td>
                     {% if product.image is not empty %}
                         <img src="{{ asset('uploads/' ~ product.image) }}">
@@ -36,7 +36,7 @@
         </tbody>
     </table>
 
-    <h2>Ajouter à mon panier</h2>
+    <h2>{{ 'product.show.add-product'|trans }}</h2>
 
     {{ form(formShoppingBasket) }}
 
@@ -45,7 +45,7 @@
     {% if is_granted('ROLE_ADMIN') %}
         <div style="display: flex; justify-content: space-between;margin-bottom: 50px;">
         <div>
-            <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn-warning btn">Edit</a>
+            <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn-warning btn">{{ 'edit'|trans }}</a>
         </div>
         <div>
         {{ include('product/_delete_form.html.twig') }}

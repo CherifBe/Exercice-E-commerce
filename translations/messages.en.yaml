@@ -1,0 +1,151 @@
+delete: Delete
+update: Update
+edit: Edit
+remove: Remove
+back: Back
+show: Show
+
+nav:
+  articles: Articles
+  my-cart: My Cart
+  my-account: My Account
+  disconnect: Disconnect
+  connect: Connect
+  register: Register
+
+
+BasketController:
+  buy-success: We receive your order
+  change-quantity: Quantity updated
+  remove-product: Article removed correctly
+  cart-updated: Your cart is updated
+
+ProductController:
+  product-add-part-one: The article
+  product-add-part-two: is correctly added in cart
+  connect-first: You have to be connected to pass an order
+  admin:
+    product-updated: The article is updated
+    product-removed: The article is removed
+    product-created: The article is registered
+
+ProfileController:
+  credentials-updated: Your credentials are correctly update
+  no-access: You don't have access to this page
+
+RegistrationController:
+  account-created: Your account is created
+
+admin:
+  h1: Administration
+  command-id: Command ID
+  cart-of: Cart of
+  name-of-the-article: Name of the article
+  image: Image
+  price: Price
+  sub-total: Sub-total
+  quantity: Quantity
+  total-price: Total price
+  there-is-no-cart: There is no cart
+  h2: Users list
+  user-id: ID
+  user-firstname: Firstname
+  user-lastname: Lastname
+  user-email: Email
+  user-role: Role
+  no-users: You have no user registered in your database
+
+basket:
+  index:
+    there-is-no-product: There is no product in your cart
+    my-cart: My cart
+    product-name: Name
+    product-price: Price
+    product-image: Image
+    product-quantity: Quantity
+    action: Action
+    delete: Delete
+    total: Total
+    buy: Buy
+
+  thanks:
+    h3: #TODO: A faire
+
+bundles:
+  error:
+    h1: Oops something went wrong
+  error403:
+    h1: Unauthorized
+  error404:
+    h1: Page don't found
+  error500:
+    h1: Internal server error
+
+product:
+  edit:
+    h1: Edit Product
+  index:
+    h2: Create new Product
+    h1: Article list
+    product-name: Name
+    product-description: Description
+    product-price: Price
+    product-image: Image
+    action: Action
+    no-article: No article found
+  show:
+    title: My article
+    h1: Article
+    product-name: Name
+    product-description: Description
+    product-price: Price
+    product-stock: Stock
+    product-image: Image
+    add-product: Add to cart
+
+profile:
+  index:
+    title: My Profile
+    h1: Hello
+  order:
+    title: My orders
+    h1: My orders
+    ordered-the: Ordered the
+    id-of-the-order: Id of the order
+    see-the-order: See the order
+    product-name: Name of the article
+    product-image: Image
+    product-price: Price
+    product-subtotal: Subtotal
+    product-quantity: Quantity
+    total: Total of the order
+    there-is-no-order: You have no ordered yet
+
+  ordershow:
+    title: My order
+    h1: Order detail
+    order-date: Order date
+    product-name: Name
+    product-price: Price
+    product-image: Image
+    product-quantity: Quantity
+    product-select-date: Select the
+    action: Action
+    buy-the-same: Buy the same
+    total: Total
+
+registration:
+  register:
+    register: Register
+
+security:
+  login:
+    title: Log in
+    already-logged: You are logged in as
+    logout: Logout
+    pls-sign-in: Please sign in
+    email: Email
+    password: Password
+    sign-in: Sign in
+    no-account: No account
+    register: register here

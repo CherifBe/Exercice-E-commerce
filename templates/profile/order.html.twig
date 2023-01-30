@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ma boutique - Mes commandes{% endblock %}
+{% block title %}Ma boutique - {{ 'profile.order.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Mes commandes</h1>
+    <h1>{{ 'profile.order.h1'|trans }}</h1>
 <div>
     {% for order in orders %}
             <div class="container" style="border: 1px solid black; margin:30px auto; ;border-radius: 5px; padding: 10px;">
-                <small>Commande passée le: {{ order.createdAt|date('d/m/Y') }} - ID de la commande: {{ order.id }}</small>
-                <p><a href="{{ path('app_profile_show_order', {'id': order.id}) }}">Voir la commande</a></p>
+                <small>{{'profile.order.ordered-the'|trans}}: {{ order.createdAt|date('d/m/Y') }} - {{ 'profile.order.id-of-the-order'|trans }}: {{ order.id }}</small>
+                <p><a href="{{ path('app_profile_show_order', {'id': order.id}) }}">{{ 'profile.order.see-the-order'|trans }}</a></p>
                 {% set total = 0 %}
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Nom de l'article</th>
-                        <th>Image</th>
-                        <th>Prix</th>
-                        <th>Sous-total</th>
-                        <th>Quantité</th>
+                        <th>{{'profile.order.product-name'|trans}}</th>
+                        <th>{{'profile.order.product-image'|trans}}</th>
+                        <th>{{'profile.order.product-price'|trans}}</th>
+                        <th>{{'profile.order.product-subtotal'|trans}}</th>
+                        <th>{{'profile.order.product-quantity'|trans}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -34,11 +34,11 @@
                     </tbody>
                     </thead>
                 </table>
-                Total de la commande: {{ total / 100|round(2) }}$</div>
+                {{'profile.order.total'|trans}}: {{ total / 100|round(2) }}$</div>
             </div>
         <div>
     {% else %}
-        <div>Vous n'avez pas encore passé de commande.</div>
+        <div>{{'profile.order.there-is-no-order'|trans}}.</div>
     {% endfor %}
 </div>
 {% endblock %}

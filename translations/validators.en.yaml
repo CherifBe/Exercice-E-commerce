@@ -1,0 +1,13 @@
+The title must have 2 caracters: The title must have 2 caracters
+The title must have 255 caracters: The title must have 255 caracters
+The picture title cannot have less than 2 caracters: The picture title cannot have less than 2 caracters
+The picture title cannot have more than 255 caracters: The picture title cannot have more than 255 caracters
+The email cannot have less than 2 caracters: The email cannot have less than 2 caracters
+The email cannot have more than 180 caracters: The email cannot have more than 180 caracters
+This is not a valid email: This is not a valid email
+The name cannot have less than 2 caracters: The name cannot have less than 2 caracters
+The name cannot have more than 255 caracters: The name cannot have more than 255 caracters
+Your lastname cannot contain a number: Your lastname cannot contain a number
+The firstname cannot have less than 2 caracters: The firstname cannot have less than 2 caracters
+The firstname cannot have more than 255 caracters: The firstname cannot have more than 255 caracters
+Your firstname cannot contain a number: Your firstname cannot contain a number

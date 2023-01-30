@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -20,6 +21,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 180,
+        minMessage: 'The email cannot have less than 2 caracters',
+        maxMessage: 'The email cannot have more than 180 caracters',
+    )]
+    #[Assert\Email(
+        message: 'This is not a valid email',
+    )]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -29,12 +40,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: 'The name cannot have less than 2 caracters',
+        maxMessage: 'The name cannot have more than 255 caracters',
+    )]
+    #[Assert\Regex(
+        pattern: '/\d/',
+        match: false,
+        message: 'Your lastname cannot contain a number',
+    )]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 2,
+        max: 255,
+        minMessage: 'The firstname cannot have less than 2 caracters',
+        maxMessage: 'The firstname cannot have more than 255 caracters',
+    )]
+    #[Assert\Regex(
+        pattern: '/\d/',
+        match: false,
+        message: 'Your firstname cannot contain a number',
+    )]
     private ?string $firstname = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Basket::class)]

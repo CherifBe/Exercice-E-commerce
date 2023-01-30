@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BasketController extends AbstractController
 {
@@ -21,7 +22,7 @@ class BasketController extends AbstractController
     }
 
     #[Route('/basket/buy', name: 'app_basket_buy')]
-    public function buy(EntityManagerInterface $em): Response
+    public function buy(EntityManagerInterface $em, TranslatorInterface $t): Response
     {
         //TODO: Combiner peut être les deux fonctions
         //TODO: Revoir ça, faire lifecycle ou un truc dans le genre
@@ -48,26 +49,33 @@ class BasketController extends AbstractController
     }
 
     #[Route('/basket/{id}/{change}', name: 'app_basket_change')]
-    public function change(ShoppingBasket $shoppingBasket, EntityManagerInterface $em, string $change): Response
+    public function change(ShoppingBasket $shoppingBasket, EntityManagerInterface $em, string $change, TranslatorInterface $t): Response
     {
-        if($change != 'delete'){
-            $quantity = $shoppingBasket->getQuantity();
-            if($change == 'add'){
+        switch ($change){
+            case 'delete':
+                $em->remove($shoppingBasket);
+                $em->flush();
+                $this->addFlash('success', $t->trans('BasketController.remove-product'));
+                break;
+            case 'add':
+                $quantity = $shoppingBasket->getQuantity();
                 $quantity++;
-            }
-            else if($change == 'minus'){
+                $shoppingBasket->setQuantity($quantity);
+                $em->persist($shoppingBasket);
+                $em->flush();
+                $this->addFlash('success', $t->trans('BasketController.change-quantity'));
+                break;
+            case 'minus':
+                $quantity = $shoppingBasket->getQuantity();
                 $quantity--;
-            }
-            $shoppingBasket->setQuantity($quantity);
-            $em->persist($shoppingBasket);
-            $em->flush();
-        }
-        else {
-            $em->remove($shoppingBasket);
-            $em->flush();
+                $shoppingBasket->setQuantity($quantity);
+                $em->persist($shoppingBasket);
+                $em->flush();
+                $this->addFlash('success', $t->trans('BasketController.change-quantity'));
+                break;
         }
 
-        $this->addFlash('success', 'Panier mis à jour');
+        $this->addFlash('success', $t->trans('BasketController.cart-updated'));
         return $this->redirectToRoute('app_basket');
     }
 }

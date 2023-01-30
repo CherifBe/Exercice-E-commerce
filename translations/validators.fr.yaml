@@ -1,0 +1,13 @@
+The title must have 2 caracters: Le titre doit faire minimum 2 caractères
+The title must have 255 caracters: Le titre doit faire maximum 255 caractères
+The picture title cannot have less than 2 caracters: Le titre de l'image doit faire minimum 2 caractères
+The picture title cannot have more than 255 caracters: Le titre de l'image doit faire maximum 255 caractères
+The email cannot have less than 2 caracters: L'email doit faire minimum 2 caractères
+The email cannot have more than 180 caracters: L'email doit faire maximum 180 caractères
+This is not a valid email: L'email n'est pas valides
+The name cannot have less than 2 caracters: Le nom doit faire minimum 2 caractères
+The name cannot have more than 255 caracters: Le nom doit faire maximum 255 caractères
+Your lastname cannot contain a number: Votre nom ne peut pas contenir de chiffre
+The firstname cannot have less than 2 caracters: Le prénom doit faire minimum 2 caractères
+The firstname cannot have more than 255 caracters: Le prénom doit faire maximum 255 caractères
+Your firstname cannot contain a number: Votre prénom ne peut pas contenir de chiffre

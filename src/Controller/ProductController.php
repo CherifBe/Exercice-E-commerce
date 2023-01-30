@@ -15,11 +15,12 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'app_product_index', methods: ['GET','POST'])]
-    public function index(ProductRepository $productRepository, Request $r): Response
+    public function index(ProductRepository $productRepository, Request $r, TranslatorInterface $t): Response
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
@@ -39,6 +40,7 @@ class ProductController extends AbstractController
                 $product->setImage($newFilename);
             }
             $productRepository->save($product, true);
+            $this->addFlash('success', $t->trans('ProductController.admin.product-created'));
         }
 
         return $this->render('product/index.html.twig', [
@@ -67,7 +69,7 @@ class ProductController extends AbstractController
     }*/
 
     #[Route('/product/{id}', name: 'app_product_show', methods: ['GET', 'POST'])]
-    public function show(Product $product, Request $r, EntityManagerInterface $em): Response
+    public function show(Product $product, Request $r, EntityManagerInterface $em, TranslatorInterface $t): Response
     {
         $shoppingBasket = new ShoppingBasket();
 
@@ -89,10 +91,10 @@ class ProductController extends AbstractController
                 $em->persist($shoppingBasket);
                 $em->flush();
 
-                $this->addFlash('success', 'Le produit '. $product->getName() . ' a bien été ajouté à votre panier');
+                $this->addFlash('success', $t->trans('ProductController.product-add-part-one'). ' ' . $product->getName() . ' ' . $t->trans('product-add-part-two'));
             }
             else{
-                $this->addFlash('warning', 'Vous devez vous connecter pour pouvoir commander');
+                $this->addFlash('warning', $t->trans('ProductController.connect-first'));
                 return $this->redirectToRoute('app_login');
             }
         }
@@ -104,18 +106,16 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/edit/{id}', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
+    public function edit(Request $request, Product $product, ProductRepository $productRepository, TranslatorInterface $t): Response
     {
         // TODO: CHANGER LE PRIX (*100 ou //100)
-
-        // TODO: Mettre route EDIT et DELETE dans config pour qu'il y ait que l'ADMIN qui puisse le faire
 
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $productRepository->save($product, true);
-
+            $this->addFlash('success', $t->trans('ProductController.admin.product-updated'));
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -126,12 +126,12 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/delete/{id}', name: 'app_product_delete', methods: ['POST'])]
-    public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
+    public function delete(Request $request, Product $product, ProductRepository $productRepository, TranslatorInterface $t): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
             $productRepository->remove($product, true);
         }
-
+        $this->addFlash('success', $t->trans('ProductController.admin.product-removed'));
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
     }
 }

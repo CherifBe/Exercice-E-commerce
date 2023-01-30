@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ma boutique - Mon profil{% endblock %}
+{% block title %}Ma boutique - {{ 'profile.index.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Hello {{ user.firstname }} {{ user.lastname }}</h1>
+    <h1>{{ 'profile.index.h1'|trans }} {{ user.firstname }} {{ user.lastname }}</h1>
     {{ form(form) }}
 {% endblock %}

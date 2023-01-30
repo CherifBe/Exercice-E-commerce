@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Product{% endblock %}
+{% block title %}Ma boutique - Modifier{% endblock %}
 
 {% block body %}
-    <h1>Edit Product</h1>
-    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn-primary btn">Retour</a>
+    <h1>{{ 'product.edit.h1'|trans }}</h1>
+    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn-primary btn">{{ 'back'|trans }}</a>
     {{ include('product/_form.html.twig') }}
 
     <div style="display: flex; justify-content: space-between">
