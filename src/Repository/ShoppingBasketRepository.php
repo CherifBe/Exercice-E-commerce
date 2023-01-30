@@ -41,21 +41,6 @@ class ShoppingBasketRepository extends ServiceEntityRepository
         }
     }
 
-    public function getProductsFromCurrentBasket(UserInterface $user, bool $alreadyOrdered): ?array
-    {
-        return $this->createQueryBuilder('s')
-            ->join('s.product', 'p')
-            ->addSelect('p')
-            ->join('s.basket', 'b')
-            ->addSelect('b')
-            ->where('b.user = :user')
-            ->setParameter('user', $user)
-            ->andWhere('b.state = :state')
-            ->setParameter('state', $alreadyOrdered)
-            ->orderBy('s.createdAt', 'DESC')
-            ->getQuery()->getResult()
-            ;
-    }
 
 //    /**
 //     * @return ShoppingBasket[] Returns an array of ShoppingBasket objects

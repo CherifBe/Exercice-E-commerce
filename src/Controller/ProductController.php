@@ -26,6 +26,11 @@ class ProductController extends AbstractController
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($r);
         if($form->isSubmitted() && $form->isValid()){
+            //$user = $this->getUser();
+            //$role = $user->getRoles()[0];
+            //if($user == null or $role != 'ROLE_ADMIN' or $role != 'ROLE_SUPER_ADMIN'){ // On vient vérifier que le POST provient bien de nos admins
+            //    return $this->redirect('/');
+            //}
             $image = $form->get('image')->getData();
             if ($image) {
                 $newFilename = uniqid().'.'.$image->guessExtension();

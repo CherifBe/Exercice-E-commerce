@@ -39,7 +39,7 @@ class UpdateProfileType extends AbstractType
 
             ->add('Save', SubmitType::class)
         ;
-
+        // Je reçois "roles" en array, j'appelle donc une fonction callbacktransformer pour adapter le tableau au select
         $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(
                 function ($rolesArray) {
