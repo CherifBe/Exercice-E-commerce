@@ -15,6 +15,7 @@ class BasketController extends AbstractController
     #[Route('/basket', name: 'app_basket')]
     public function index(EntityManagerInterface $em): Response
     {
+        // Cette  fonction vient chercher le contenu du panier si il y en a un
         $basket_content = []; // On initialise un tableau vide
         $basket = $em->getRepository(Basket::class)->findOneBy(['user'=>$this->getUser(), 'state'=>false], null, 1);
         if($basket != null){ // Si la requête renvoie un objet on remplit le tableau avec les produits liés au panier
@@ -28,9 +29,13 @@ class BasketController extends AbstractController
     #[Route('/basket/buy', name: 'app_basket_buy')]
     public function buy(EntityManagerInterface $em, TranslatorInterface $t): Response
     {
+        // Cette fonction vient finaliser un achat en passant l'état d'une commande à VRAI et en retirant le stock des produits en fonction de la quantité commandée
         // TODO: FAIRE VERIFICATION DU STOCK DANS LA VUE
+        // TODO: TRADUIRE LES MOTS DU FORMULAIRE
         $basket = $em->getRepository(Basket::class)->findOneBy(['user'=>$this->getUser(), 'state'=>false]);
-
+        if($basket === null){ // Si $basket est null on redirige au panier
+            return $this->redirectToRoute('app_basket');
+        }
         if(!$basket->isState()){ // Ici on passe l'état du panier à VRAI étant donné qu'à présent il est finalisé
             $basket->setState(true);
             $basket->setCreatedAt(new \DateTime()); // Date d'achat
@@ -39,9 +44,9 @@ class BasketController extends AbstractController
 
         foreach($basket->getShoppingBaskets() as $productInBasket){ // Puisque nos produits sont achetés on vient modifier le stock de chaque produit
             $product = $productInBasket->getProduct();
-            $stock = $product->getStock();
-            $stock -= $productInBasket->getQuantity();
-            $product->setStock($stock);
+            $stock = $product->getStock(); // On récupère le stock du produit
+            $stock -= $productInBasket->getQuantity(); // On y retire la quantité du produit commandé
+            $product->setStock($stock); // On set la nouvelle valeur du stock
             $em->persist($product);
             $em->flush();
         }
@@ -53,6 +58,7 @@ class BasketController extends AbstractController
     #[Route('/basket/{id}/{change}', name: 'app_basket_change')]
     public function change(ShoppingBasket $shoppingBasket, EntityManagerInterface $em, string $change, TranslatorInterface $t): Response
     {
+        // Cette fonction vient "attraper" tous les types de changement possible de la page basket
         // Lorsque l'utilisateur modifie la quantité ou supprime un article, il envoie une valeur $change, soit pour augmenter la quantité,
         // pour diminuer la quantité ou encore supprimer l'article
         switch ($change){
