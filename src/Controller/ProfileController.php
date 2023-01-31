@@ -20,8 +20,6 @@ class ProfileController extends AbstractController
         // Cette fonction vient afficher la page d'accueil du profil de l'utilisateur
         // Sur cette page d'accueil l'utilisateur peut modifier ses propres données
         // La route profile est accessible uniquement si l'utilisateur a au minimum le role "ROLE_USER"
-        // TODO: faire navigation dans le profile
-        // TODO: Vérifier si password n'est pas modifier car on ne met rien dans l'input password
         $user = $this->getUser();
         $old_password = $user->getPassword();
         $form = $this->createForm(UpdateProfileType::class, $user);
@@ -29,18 +27,19 @@ class ProfileController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $password = $form->get('password')->getData();
-            if($password != null){
+            if($password != null){ // Si l'utilisateur passe un nouveau mot de passe, on vient le hasher et l'initialiser dans l'objet user
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
                         $user,
                         $form->get('password')->getData()
                     ));
-            } else {
+            } else { // Si l'utilisateur ne passe aucun mot de passe, on garde le même mot de passe
                 $user->setPassword($old_password);
             }
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', $t->trans('ProfileController.credentials-updated'));
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('profile/index.html.twig', [

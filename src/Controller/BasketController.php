@@ -30,8 +30,6 @@ class BasketController extends AbstractController
     public function buy(EntityManagerInterface $em, TranslatorInterface $t): Response
     {
         // TODO: FAIRE README
-        // TODO: VERIFIER FONCTIONNEMENT DU SITE SANS BDD
-        // TODO TRADUIRE MESSAGE DU FORM REGISTRATIONFORMTYPE
 
         // Cette fonction vient finaliser un achat en passant l'état d'une commande à VRAI et en retirant le stock des produits en fonction de la quantité commandée
         $basket = $em->getRepository(Basket::class)->findOneBy(['user'=>$this->getUser(), 'state'=>false]);

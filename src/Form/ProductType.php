@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,12 +34,21 @@ class ProductType extends AbstractType
                             'image/png',
                             'image/webp'
                         ],
-                        'mimeTypesMessage' => 'Seules les jpg, jpeg, png et webp sont autorisés',
+                        'mimeTypesMessage' => 'Only jpg, jpeg, png and webp are authorized',
                     ])
                 ],
             ])
           ->add('Save', SubmitType::class)
         ;
+        $builder->get('price')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($price) {
+                    return isset($price)? $price / 100: null;
+                },
+                function ($price) {
+                    return $price * 100;
+                }
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

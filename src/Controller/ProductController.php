@@ -85,11 +85,11 @@ class ProductController extends AbstractController
                     // Ainsi on procède à une requête findBy le produit que nous recevons que le panier en cours
                     $same_shopping_basket = $em->getRepository(ShoppingBasket::class)->findOneBy(['basket' => $basket, 'product' => $product]);
                     if ($same_shopping_basket !== null) { // S'il s'avère que le même produit est déjà dans la base on vient modifier la quantité du produit et on renvoit l'objet modifié dans la base
-                        $same_shopping_basket->setQuantity($same_shopping_basket->getQuantity() + 1);
+                        $same_shopping_basket->setQuantity($same_shopping_basket->getQuantity() + $formShoppingBasket->get('quantity')->getData());
                         $same_shopping_basket->setCreatedAt(new \DateTime());
                         $em->persist($same_shopping_basket);
                         $em->flush();
-
+                        $this->addFlash('success', $t->trans('ProductController.product-add-part-one') . ' ' . $product->getName() . ' ' . $t->trans('ProductController.product-add-part-two'));
                         return $this->render('product/show.html.twig', [
                             'product' => $product,
                             'formShoppingBasket' => $formShoppingBasket->createView(),
@@ -111,7 +111,6 @@ class ProductController extends AbstractController
             }
         }
 
-
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'formShoppingBasket' => $formShoppingBasket->createView(),
@@ -119,10 +118,13 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/edit/{id}', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, ProductRepository $productRepository, TranslatorInterface $t): Response
+    public function edit(Request $request, ?Product $product, ProductRepository $productRepository, TranslatorInterface $t): Response
     {
         // La fonction edit permet de modifier les informations d'un produit
         // Les routes contenant "edit" sont accessibles uniquement pour les admins
+        if($product === null){
+            return $this->redirectToRoute('app_product_index');
+        }
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
