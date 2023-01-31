@@ -22,10 +22,6 @@
                 <td>{{ product.price / 100|round(2) }}$</td>
             </tr>
             <tr>
-                <th>{{ 'product.show.product-stock'|trans }}</th>
-                <td>{{ product.stock }}</td>
-            </tr>
-            <tr>
                 <th>{{ 'product.show.product-image'|trans }}</th>
                 <td>
                     {% if product.image is not empty %}

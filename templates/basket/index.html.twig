@@ -35,7 +35,7 @@
                     <a href="{{ path('app_basket_change', {'id':product.id, 'change': 'add'}) }}">+</a>
                 </td>
                 <td>
-                    <a href="{{ path('app_basket_change', {'id':product.id, 'change': 'delete'}) }}" class="btn-primary btn">{{ 'basket.index.delete'|trans}}</a>
+                    <a href="{{ path('app_basket_change', {'id':product.id, 'change': 'remove'}) }}" class="btn-primary btn">{{ 'basket.index.delete'|trans}}</a>
                 </td>
             </tr>
             {% set total = total + product.product.price * product.quantity %}

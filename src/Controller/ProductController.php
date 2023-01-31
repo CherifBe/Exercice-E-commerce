@@ -59,8 +59,11 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/{id}', name: 'app_product_show', methods: ['GET', 'POST'])]
-    public function show(Product $product, Request $r, EntityManagerInterface $em, TranslatorInterface $t): Response
+    public function show(?Product $product, Request $r, EntityManagerInterface $em, TranslatorInterface $t): Response
     {
+        if($product === null){
+            return $this->redirectToRoute('app_product_index');
+        }
         // La fonction "show" vient afficher un produit en détail et propose un formulaire pour permettre à l'utilisateur d'entrer une quantité lorsqu'il veut acheter le produit
         $shoppingBasket = new ShoppingBasket();
 

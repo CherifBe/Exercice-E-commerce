@@ -64,7 +64,7 @@ class BasketController extends AbstractController
         // Lorsque l'utilisateur modifie la quantité ou supprime un article, il envoie une valeur $change, soit pour augmenter la quantité,
         // pour diminuer la quantité ou encore supprimer l'article
         switch ($change){
-            case 'delete':
+            case 'remove':
                 $em->remove($shoppingBasket);
                 $em->flush();
                 $this->addFlash('success', $t->trans('BasketController.remove-product'));
