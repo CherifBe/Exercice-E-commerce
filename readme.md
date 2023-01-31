@@ -3,11 +3,11 @@
 **To install this project you have to:**
 
 ```
-git clone URL
+git clone https://github.com/CherifBe/Exercice-E-commerce.git
 ```
 
 ```
-cd project_folder
+cd Exercice-E-commerce
 ```
 
 ```
