@@ -26,6 +26,7 @@ ProductController:
   product-add-part-one: The article
   product-add-part-two: is correctly added in cart
   connect-first: You have to be connected to pass an order
+  no-product: This product don't exist
   admin:
     product-updated: The article is updated
     product-removed: The article is removed

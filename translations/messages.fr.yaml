@@ -26,6 +26,7 @@ ProductController:
   product-add-part-one: L'article
   product-add-part-two: a bien été ajouté au panier
   connect-first: Vous devez être connecter pour mettre un article dans le panier
+  no-product: Ce produit n'existe pas
   admin:
     product-updated: L'article a été modifié
     product-removed: L'article a été supprimé

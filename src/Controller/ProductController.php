@@ -62,6 +62,7 @@ class ProductController extends AbstractController
     public function show(?Product $product, Request $r, EntityManagerInterface $em, TranslatorInterface $t): Response
     {
         if($product === null){
+            $this->addFlash('danger', $t->trans('ProductController.no-product'));
             return $this->redirectToRoute('app_product_index');
         }
         // La fonction "show" vient afficher un produit en détail et propose un formulaire pour permettre à l'utilisateur d'entrer une quantité lorsqu'il veut acheter le produit
@@ -123,6 +124,7 @@ class ProductController extends AbstractController
         // La fonction edit permet de modifier les informations d'un produit
         // Les routes contenant "edit" sont accessibles uniquement pour les admins
         if($product === null){
+            $this->addFlash('danger', $t->trans('ProductController.no-product'));
             return $this->redirectToRoute('app_product_index');
         }
         $form = $this->createForm(ProductType::class, $product);

@@ -39,7 +39,6 @@ class ProfileController extends AbstractController
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', $t->trans('ProfileController.credentials-updated'));
-            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('profile/index.html.twig', [
