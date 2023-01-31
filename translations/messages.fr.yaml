@@ -102,6 +102,7 @@ product:
     product-stock: Stock
     product-image: Image
     add-product: Ajouter au panier
+    no-stock: Hélas ce produit a connu un fort succès et n'est plus disponible
 
 profile:
   index:
@@ -149,3 +150,22 @@ security:
     sign-in: Connexion
     no-account: Toujours pas de compte
     register: inscrivez-vous
+
+
+Name: Nom
+Description: Description
+Price: Prix
+Stock: Stock
+Image (jpg, jpeg, png, webp): Image (jpg, jpeg, png, webp)
+Quantity: Quantité
+Save: Sauvegarder
+My-Orders: Mes commandes
+
+Lastname: Nom
+Firstname: Prénom
+Email: Email
+Password: Mot de passe
+Roles: Roles
+User: Utilisateur
+Super admin: Super administrateur
+Admin: Administrateur

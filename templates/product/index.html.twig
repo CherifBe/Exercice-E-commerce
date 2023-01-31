@@ -7,7 +7,6 @@
     {% if is_granted('ROLE_ADMIN') %}
         <h2>{{ 'product.index.h2'|trans }}</h2>
         {{ include('product/_form.html.twig') }}
-        <button class="btn-primary btn">{{ button_label|default('Save') }}</button>
     {% endif %}
 
     <h1>{{ 'product.index.h1'|trans }}</h1>
@@ -34,9 +33,9 @@
                     {% endif %}
                 </td>
                 <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">{{ 'show'|trans }}</a>
+                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn-primary btn">{{ 'show'|trans }}</a>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('app_product_edit', {'id': product.id}) }}">{{ 'edit'|trans }}</a>
+                        <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn-warning btn">{{ 'edit'|trans }}</a>
                     {% endif %}
                 </td>
             </tr>

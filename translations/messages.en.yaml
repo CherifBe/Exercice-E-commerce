@@ -102,6 +102,7 @@ product:
     product-stock: Stock
     product-image: Image
     add-product: Add to cart
+    no-stock: This product is not available
 
 profile:
   index:
@@ -149,3 +150,21 @@ security:
     sign-in: Sign in
     no-account: No account
     register: register here
+
+Name: Name
+Description: Description
+Price: Price
+Stock: Stock
+Image (jpg, jpeg, png, webp): Image (jpg, jpeg, png, webp)
+Quantity: Quantity
+Save: Save
+My-Orders: My orders
+
+Lastname: Lastname
+Firstname: Firstname
+Email: Email
+Password: Password
+Roles: Roles
+User: User
+Super admin: Super admin
+Admin: Admin

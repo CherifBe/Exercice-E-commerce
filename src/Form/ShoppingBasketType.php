@@ -29,7 +29,7 @@ class ShoppingBasketType extends AbstractType
                     '11' => 11,
                     '12' => 12,
                 ]])
-            ->add('Sauvegarder', SubmitType::class)
+            ->add('Save', SubmitType::class)
         ;
     }
 

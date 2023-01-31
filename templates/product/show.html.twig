@@ -38,9 +38,11 @@
 
     <h2>{{ 'product.show.add-product'|trans }}</h2>
 
-    {{ form(formShoppingBasket) }}
-
-
+    {% if product.stock > 0 %}
+        {{ form(formShoppingBasket) }}
+    {% else %}
+        <div>{{ 'product.show.no-stock'|trans }}.</div>
+    {% endif %}
 
     {% if is_granted('ROLE_ADMIN') %}
         <div style="display: flex; justify-content: space-between;margin-bottom: 50px;">

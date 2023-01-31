@@ -29,9 +29,10 @@ class BasketController extends AbstractController
     #[Route('/basket/buy', name: 'app_basket_buy')]
     public function buy(EntityManagerInterface $em, TranslatorInterface $t): Response
     {
+        // TODO: FAIRE README + PREVENIR QU'ON GARDE LE TITRE DU SITE EN FRANCAIS EXPRES
+        // TODO: VERIFIER FONCTIONNEMENT DU SITE SANS BDD
+        // TODO TRADUIRE MESSAGE DU FORM REGISTRATIONFORMTYPE
         // Cette fonction vient finaliser un achat en passant l'état d'une commande à VRAI et en retirant le stock des produits en fonction de la quantité commandée
-        // TODO: FAIRE VERIFICATION DU STOCK DANS LA VUE
-        // TODO: TRADUIRE LES MOTS DU FORMULAIRE
         $basket = $em->getRepository(Basket::class)->findOneBy(['user'=>$this->getUser(), 'state'=>false]);
         if($basket === null){ // Si $basket est null on redirige au panier
             return $this->redirectToRoute('app_basket');

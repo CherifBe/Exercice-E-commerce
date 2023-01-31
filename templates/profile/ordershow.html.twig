@@ -3,6 +3,7 @@
 {% block title %}Ma boutique - {{ 'profile.ordershow.title'|trans }}{% endblock %}
 
 {% block body %}
+    <a href="{{ path('app_profile_orders') }}" class="btn-primary btn">{{ 'back'|trans }}</a>
 <h1>{{ 'profile.ordershow.h1'|trans }}</h1>
 
 <div>{{ 'profile.ordershow.order-date'|trans }}: {{ order.createdAt|date('d/m/Y H:m:s') }}</div>

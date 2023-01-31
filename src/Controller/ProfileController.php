@@ -37,7 +37,7 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    #[Route('/profile/orders', name: 'app_profile_order')]
+    #[Route('/profile/orders', name: 'app_profile_orders')]
     public function showOrders(EntityManagerInterface $em): Response
     {
         // Cette fonction vient afficher les différentes commandes passées par l'utilisateur
