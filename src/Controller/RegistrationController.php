@@ -21,6 +21,8 @@ class RegistrationController extends AbstractController
     {
         // Cette fonction vient "enregistrer" un nouvel utilisateur dans notre base de donnée
         $user = new User();
+        $user->setRoles(['ROLE_USER']);
+        // $user->setRoles(['ROLE_SUPER_ADMIN']);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 

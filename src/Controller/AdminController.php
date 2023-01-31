@@ -15,6 +15,7 @@ class AdminController extends AbstractController
     #[Route('/admin', name: 'app_admin')]
     public function index(EntityManagerInterface $em): Response
     {
+        // TODO: Changer le title et le mettre en anglais
         // Cette fonction permet d'afficher tous les paniers des utilisateurs qui n'ont pas finalisés leur commande
         // Aussi cette fonction vient chercher la liste des utilisateurs en triant du plus récent vers le plus ancien
         $baskets_content = [];

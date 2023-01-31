@@ -8,13 +8,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function index(Request $r, EntityManagerInterface $em, TranslatorInterface $t): Response
+    public function index(Request $r, EntityManagerInterface $em, TranslatorInterface $t, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         // Cette fonction vient afficher la page d'accueil du profil de l'utilisateur
         // Sur cette page d'accueil l'utilisateur peut modifier ses propres données
@@ -22,10 +23,21 @@ class ProfileController extends AbstractController
         // TODO: faire navigation dans le profile
         // TODO: Vérifier si password n'est pas modifier car on ne met rien dans l'input password
         $user = $this->getUser();
+        $old_password = $user->getPassword();
         $form = $this->createForm(UpdateProfileType::class, $user);
         $form->handleRequest($r);
 
         if($form->isSubmitted() && $form->isValid()){
+            $password = $form->get('password')->getData();
+            if($password != null){
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    ));
+            } else {
+                $user->setPassword($old_password);
+            }
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', $t->trans('ProfileController.credentials-updated'));
@@ -53,8 +65,11 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/profile/orders/{id}', name: 'app_profile_show_order')]
-    public function showOrder(Basket $basket, TranslatorInterface $t): Response
+    public function showOrder(?Basket $basket, TranslatorInterface $t): Response
     {
+        if($basket === null){
+            return $this->redirectToRoute('app_profile_orders');
+        }
         // Cette fonction vient afficher la commande de l'utilisateur en détail
         $user = $basket->getUser();
         if(($this->getUser() === null) or ($user->getId() !== $this->getUser()->getId())){ // Si jamais l'utilisateur passe un autre ID dans l'URL et qu'il ne s'agit pas de SON panier, on le redirige

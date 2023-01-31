@@ -43,7 +43,6 @@ class Product
     private ?int $stock = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
     #[Assert\Length(
         min: 2,
         max: 255,
@@ -51,8 +50,9 @@ class Product
         maxMessage: 'The picture title cannot have more than 255 caracters',
     )]
     private ?string $image = null;
-
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ShoppingBasket::class)]
+    // Ici on supprime les orphelins car lorsque l'on supprime un article, et que ce même article se trouve dans un panier non finalisé on produit une erreur, mais l'idéal serait d'aller supprimer
+    // le produit de chaque panier non finalisé, et de le garder en base afin de garder une trace sur les commandes finalisées des utilisateurs
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ShoppingBasket::class, orphanRemoval: true)]
     private Collection $shoppingBaskets;
 
     public function __construct()

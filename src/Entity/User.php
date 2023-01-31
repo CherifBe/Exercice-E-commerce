@@ -40,7 +40,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\NotBlank]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
@@ -73,7 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private ?string $firstname = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Basket::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Basket::class, orphanRemoval: true)]
     private Collection $baskets;
 
     public function __construct()

@@ -25,6 +25,7 @@ class UpdateProfileType extends AbstractType
             ->add('password', PasswordType::class, [
                 'hash_property_path' => 'password',
                 'mapped' => false,
+                'required' => false,
             ])
             ->add('roles', ChoiceType::class, [
                 'required' => true,

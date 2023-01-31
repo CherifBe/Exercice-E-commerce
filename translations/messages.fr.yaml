@@ -1,3 +1,5 @@
+my-shop : Ma Boutique
+
 delete: Supprimer
 update: Modifier
 edit: Editer
@@ -69,7 +71,7 @@ basket:
     buy: Acheter
 
   thanks:
-    h3: #TODO: A faire
+    h3: Votre commande a bien été prise en compte. Nous nous chargons de tout à présent. Merci
 
 bundles:
   error:
@@ -169,3 +171,5 @@ Roles: Roles
 User: Utilisateur
 Super admin: Super administrateur
 Admin: Administrateur
+
+Agree terms: J'accepte les conditions

@@ -1,3 +1,5 @@
+my-shop : My Shop
+
 delete: Delete
 update: Update
 edit: Edit
@@ -69,7 +71,7 @@ basket:
     buy: Buy
 
   thanks:
-    h3: #TODO: A faire
+    h3: Your order has been taken into account. We take care of everything now. Thanks
 
 bundles:
   error:
@@ -168,3 +170,5 @@ Roles: Roles
 User: User
 Super admin: Super admin
 Admin: Admin
+
+Agree terms: Agree terms
